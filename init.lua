@@ -620,7 +620,9 @@ require('lazy').setup({
           end,
           jdtls = function()
             require('java').setup {
-              -- Your custom jdtls settings goes here
+              jdtls = {
+                javaAgent = vim.fn.expand '~/.m2/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar',
+              },
             }
 
             require('lspconfig').jdtls.setup {
