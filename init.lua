@@ -90,6 +90,9 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- NOTE: My keymapps
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
@@ -153,7 +156,6 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
-
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -726,18 +728,13 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<C-Space>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
           --['<CR>'] = cmp.mapping.confirm { select = true },
           --['<Tab>'] = cmp.mapping.select_next_item(),
           --['<S-Tab>'] = cmp.mapping.select_prev_item(),
-
-          -- Manually trigger a completion from nvim-cmp.
-          --  Generally you don't need this, because nvim-cmp will display
-          --  completions whenever it has completion options available.
-          ['<C-Space>'] = cmp.mapping.complete {},
 
           -- Think of <c-l> as moving to the right of your snippet expansion.
           --  So if you have a snippet that's like:
