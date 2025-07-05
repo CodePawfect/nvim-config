@@ -91,7 +91,34 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- NOTE: My keymapps
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex) -- open file explorer (:Ex)
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv") -- move selected lines down in visual mode
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv") -- move selected lines up in visual mode
+
+vim.keymap.set('n', 'J', 'mzJ`z') -- join lines but keep cursor in place and screen position
+vim.keymap.set('n', '<C-d>', '<C-d>zz') -- scroll down half a page and center cursor
+vim.keymap.set('n', '<C-u>', '<C-u>zz') -- scroll up half a page and center cursor
+vim.keymap.set('n', 'n', 'nzzzv') -- next search result, center screen and unfold folds
+vim.keymap.set('n', 'N', 'Nzzzv') -- previous search result, center screen and unfold folds
+
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d') -- delete without copying to any register (black hole)
+vim.keymap.set('i', '<C-c>', '<Esc>') -- exit insert mode with Ctrl+C (like Esc)
+
+vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>') -- open tmux-sessionizer in a new tmux window
+vim.keymap.set('n', '<M-h>', '<cmd>silent !tmux-sessionizer -s 0 --vsplit<CR>') -- open tmux session in vertical split
+vim.keymap.set('n', '<M-H>', '<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>') -- open tmux session in new window (session 0)
+
+vim.keymap.set('n', '<leader>f', function()
+  require('conform').format { bufnr = 0 }
+end) -- format current buffer using conform.nvim
+
+vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- search and replace word under cursor globally, case-insensitive
+vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true }) -- make current file executable (chmod +x)
+
+vim.keymap.set('n', '<leader>ee', 'oif err != nil {<CR>}<Esc>Oreturn err<Esc>') -- insert Go-style `if err != nil { return err }`
+vim.keymap.set('n', '<leader>ea', 'oassert.NoError(err, "")<Esc>F";a') -- insert `assert.NoError(err, "")` and place cursor inside quotes
+vim.keymap.set('n', '<leader>ef', 'oif err != nil {<CR>}<Esc>Olog.Fatalf("error: %s\\n", err.Error())<Esc>jj') -- insert fatal logging for Go errors
+vim.keymap.set('n', '<leader>el', 'oif err != nil {<CR>}<Esc>O.logger.Error("error", "error", err)<Esc>F.;i') -- insert logger-based error handling
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
